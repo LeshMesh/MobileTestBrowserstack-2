@@ -1,6 +1,7 @@
 package guru.qa.drivers;
 
 import com.codeborne.selenide.WebDriverProvider;
+import guru.qa.config.Credentials;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.AutomationName;
@@ -26,30 +27,26 @@ public class EmulatorMobileDriver implements WebDriverProvider {
         options.merge(capabilities);
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
         options.setPlatformName("Android");
-        options.setDeviceName("RFCR90ZMNQP");
-//        options.setDeviceName("Pixel_4_API_30");
+        options.setDeviceName("Pixel_4_API_30");
         options.setPlatformVersion("11.0");
         options.setApp(app.getAbsolutePath());
-        options.setLocale("en");
-        options.setLanguage("en");
-        options.setAppPackage("org.wikipedia.alpha");
-        options.setAppActivity("org.wikipedia.main.MainActivity");
+        options.setAppPackage(Credentials.configEmul.appPackage());
+        options.setAppActivity(Credentials.configEmul.appActivity());
 
         return new AndroidDriver(getAppiumServerUrl(), options);
     }
 
     public static URL getAppiumServerUrl() {
         try {
-            return new URL("http://localhost:4723/wd/hub");
+            return new URL(Credentials.configEmul.serverUrl());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private File getApp() {
-        String appPath = "src/test/resources/apk/app-alpha-universal-release.apk";
-        String appUrl = "https://github.com/wikimedia/apps-android-wikipedia/" +
-                "releases/download/latest/app-alpha-universal-release.apk?raw=true";
+        String appPath = Credentials.configEmul.appPath();
+        String appUrl = Credentials.configEmul.appUrl();
 
         File app = new File(appPath);
         if (!app.exists()) {
