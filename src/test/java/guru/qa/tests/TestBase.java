@@ -37,6 +37,6 @@ public class TestBase {
         Attach.pageSource();
 
         closeWebDriver();
-        Attach.video(sessionId);
+//        Attach.video(sessionId);
     }
 }

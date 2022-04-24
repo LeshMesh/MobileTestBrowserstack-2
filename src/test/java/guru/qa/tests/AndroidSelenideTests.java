@@ -1,7 +1,6 @@
 package guru.qa.tests;
 
 import com.codeborne.selenide.Condition;
-import guru.qa.tests.TestBase;
 import io.appium.java_client.AppiumBy;
 import org.junit.jupiter.api.Test;
 
